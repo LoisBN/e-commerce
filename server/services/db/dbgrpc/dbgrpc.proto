@@ -1,0 +1,27 @@
+syntax = "proto3";
+option go_package=".;dbgrpc";
+package dbgrpc;
+
+message profile {
+    string sirname = 1;
+    string name = 2;
+    string email = 3;
+    string birthday = 4;
+    string date = 5;
+    string password = 6;
+}
+
+message authResponse {
+    string info = 1;
+}
+
+message authRequest {
+    string location = 1;
+    string collection = 2;
+    profile profile = 3;
+}
+
+service AuthDB {
+    rpc Add (authRequest) returns (authResponse);
+    rpc Get (authRequest) returns (profile);
+}

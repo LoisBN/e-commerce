@@ -1,0 +1,15 @@
+syntax = "proto3";
+option go_package=".;authgrpc";
+package authgrpc;
+
+message req {
+    string content = 1;
+}
+
+message res {
+    string content = 1;
+}
+
+service Test {
+    rpc Hello (req) returns (res);
+}
