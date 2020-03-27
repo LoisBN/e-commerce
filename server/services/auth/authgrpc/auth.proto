@@ -2,14 +2,29 @@ syntax = "proto3";
 option go_package=".;authgrpc";
 package authgrpc;
 
+message profile {
+    string surname = 1;
+    string name = 2;
+    string email = 3;
+    string birthday = 4;
+    string date = 5;
+    string password = 6;
+}
+
 message req {
-    string content = 1;
+    profile profile = 1;
+    string date = 2;
 }
 
 message res {
-    string content = 1;
+    profile profile = 1;
+    string content = 2;
 }
 
-service Test {
-    rpc Hello (req) returns (res);
+service Auth {
+    rpc SignUp (req) returns (res);
+    rpc SignIn (req) returns (res);
+    rpc Update (req) returns (res);
+    rpc SignOut (req) returns (res);
+    rpc Authenticate (req) returns (res);
 }

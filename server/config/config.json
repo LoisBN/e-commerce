@@ -1,0 +1,31 @@
+{
+    "services": {
+        "web": {
+            "api_endpoint": ":5678",
+            "stub": {
+                "grpc_connection": ":7890",
+                "grpc_options": [
+                    "insecure"
+                ]
+            }
+        },
+        "db": {
+            "database_layer": "MongoDB",
+            "database_info_connection": "mongodb://localhost",
+            "server": {
+                "grpc_port": ":4445"
+            }
+        },
+        "auth": {
+            "server": {
+                "grpc_port": ":7890"
+            },
+            "stub": {
+                "grpc_connection": ":4444",
+                "grpc_options": [
+                    "insecure"
+                ]
+            }
+        }
+    }
+}

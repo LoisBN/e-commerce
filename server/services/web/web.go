@@ -1,34 +1,29 @@
 package web
 
 import (
-	"context"
-	"fmt"
+	"log"
 	"net/http"
 
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/grpclog"
-
-	"github.com/loisBN/e-commerce/server/services/auth/authgrpc"
+	"github.com/loisBN/e-commerce/server/helpers"
+	"github.com/loisBN/e-commerce/server/services/web/webgrpc"
 )
+
+var helper = &helpers.Helper{}
 
 // RunAPI : start the api
 func RunAPI()  {
-	http.HandleFunc("/",messageAuth)
-	http.ListenAndServe(":5678",nil)
+	config,err := helper.GetConfig("web")
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+	webstub := &webgrpc.Webstub{}
+	http.HandleFunc("/auth/signup",webstub.SignUp)
+	http.HandleFunc("/auth/signin",webstub.SignIn)
+	http.HandleFunc("/auth/signout",webstub.SignOut)
+	http.ListenAndServe(config.(map[string]interface{})["api_endpoint"].(string),nil)
 }
 
 func messageAuth(w http.ResponseWriter,re *http.Request) {
-	conn,err := grpc.Dial(":7890",grpc.WithInsecure())
-	if err != nil {
-		grpclog.Errorln(err.Error())
-		http.Error(w,err.Error(),http.StatusInternalServerError)
-		return
-	}
-	defer conn.Close()
-	client := authgrpc.NewTestClient(conn)
-	mess,_ := client.Hello(context.Background(),&authgrpc.Req{
-		Content: "yo les mecs",
-	})
-	fmt.Println("")
-	fmt.Println(mess)
+	
 }

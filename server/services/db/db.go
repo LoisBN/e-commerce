@@ -3,13 +3,22 @@ package db
 import (
 	"net"
 
+	"github.com/loisBN/e-commerce/server/helpers"
 	"github.com/loisBN/e-commerce/server/services/db/dbgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 )
 
+var c *helpers.Helper = &helpers.Helper{}
+
+// LaunchServer : launch the db Service (and the db grpc server)
 func LaunchServer() {
-	lis,err := net.Listen("tcp",":4444")
+	config,err := c.GetConfig("db")
+	if err != nil {
+		grpclog.Errorln(err.Error())
+		return
+	}
+	lis,err := net.Listen("tcp",config.(map[string]interface{})["server"].(map[string]interface{})["grpc_port"].(string))
 	if err != nil {
 		grpclog.Errorln(err.Error())
 		return
@@ -17,7 +26,7 @@ func LaunchServer() {
 	defer lis.Close()
 	grpcServer := grpc.NewServer()
 	defer grpcServer.GracefulStop()
-	dbHandler,err := dbgrpc.NewDBHandler(0,"mongodb://localhost")
+	dbHandler,err := dbgrpc.NewDBHandler(config.(map[string]interface{})["database_layer"].(string),config.(map[string]interface{})["database_info_connection"].(string))
 	if err != nil {
 		grpclog.Errorln(err.Error())
 		return
