@@ -1,0 +1,34 @@
+.ban {
+	width: 100%;
+	height: 500px;
+	background-color: black;
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.ban img {
+	height: 100%;
+}
+
+.imgs_ban img {
+	width: 50%;
+}
+
+.textedimg_ban img {
+	width: 40%;
+	position: absolute;
+	right: 0;
+}
+
+.textedimg_ban div {
+	z-index: 1;
+}
+.fullscreenimg {
+	display: grid;
+	grid-gap: 0;
+	grid-auto-rows: auto;
+	grid-auto-columns: auto;
+	width: 100%;
+	height: 800px;
+	background-color: black;
+}

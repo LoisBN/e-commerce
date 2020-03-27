@@ -1,0 +1,6 @@
+#catalogue_finder {
+	position: relative;
+	display: flex;
+	flex-flow: row nowrap;
+	min-height: 110vh;
+}

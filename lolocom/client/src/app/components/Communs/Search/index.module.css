@@ -1,0 +1,23 @@
+#searchbar {
+	position: fixed;
+	width: 100vw;
+	height: 44px;
+	top: 44px;
+	left: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	border-bottom: 1px black solid;
+	background-color: rgba(250, 250, 250, 0.5);
+	z-index: 10;
+	overflow: hidden;
+	transition: all 0.2s ease;
+}
+#searchbar input {
+	width: 100%;
+	border: none;
+}
+#searchbar button {
+	width: 5%;
+	background-color: transparent;
+	border: none;
+}

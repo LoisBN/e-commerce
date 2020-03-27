@@ -1,5 +1,5 @@
 import React from "react";
-
+import c from "./index.module.css";
 export const renderField = ({
 	input,
 	label,
@@ -41,5 +41,12 @@ export const renderFieldDate = ({
 				((error && <span>{error}</span>) ||
 					(warning && <span>{warning}</span>))}
 		</div>
+	</div>
+);
+
+export const LoginPres = ({ children }: { children: any }) => (
+	<div id={c.login_fond}>
+		<div id={c.login_block}>{children}</div>
+		{false && <div id={c.login_descript}></div>}
 	</div>
 );

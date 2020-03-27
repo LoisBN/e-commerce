@@ -1,0 +1,45 @@
+nav {
+	background-color: black;
+	backdrop-filter: saturate(180%) blur(20px);
+	position: fixed;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	margin: 0;
+	padding: 0 20px;
+	height: 44px;
+	z-index: 10;
+	width: 100%;
+}
+#nav__space {
+	position: relative;
+	height: 44px;
+}
+nav div {
+	z-index: 11;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+}
+nav #nav__routes {
+	width: 60%;
+}
+nav a {
+	color: white;
+	transition: all 0.4s ease;
+	opacity: 0.7;
+	text-decoration: none;
+}
+nav a:hover {
+	opacity: 1;
+	text-decoration: none;
+}
+nav #nav__icons {
+	width: 20%;
+	height: 100%;
+}
+nav #nav__icons i,
+nav #nav__icons a {
+	height: 40px;
+	width: 40px;
+}

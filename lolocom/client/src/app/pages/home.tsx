@@ -1,7 +1,7 @@
 import React from "react";
 import {
 	ImagesBanPres,
-	TextedBanPres,
+	TextedBanImg,
 	FullScreenImages
 } from "../components/Bans";
 import { ProductPreviewPres } from "../components/Product";
@@ -20,7 +20,7 @@ export const Home = () => {
 			<ThemesPres themes={[]} />
 			<FullScreenImages themes={[]} />
 			<SlideShowPres images={[]} title={""} text={""} />
-			<TextedBanPres img={""} title={""} text={""} />
+			<TextedBanImg img={""} title={""} text={""} />
 			<SlideCommuPres images={[]} title={""} text={""} />
 		</div>
 	);

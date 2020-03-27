@@ -24,3 +24,30 @@ export const DisplayModeSwitcherPres = ({
 		</div>
 	);
 };
+
+export const AuthModeSwitcher = ({
+	setter,
+	current,
+	texts
+}: {
+	setter: any;
+	current: boolean;
+	texts: string[];
+}) => {
+	return (
+		<div>
+			<button
+				onClick={setter}
+				className={"" + (current ? "--active" : "--inactive")}
+			>
+				{texts[0]}
+			</button>
+			<button
+				onClick={setter}
+				className={"" + (current ? "--active" : "--inactive")}
+			>
+				{texts[1]}
+			</button>
+		</div>
+	);
+};

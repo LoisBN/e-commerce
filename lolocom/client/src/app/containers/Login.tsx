@@ -1,7 +1,8 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 
-import { renderField, renderFieldDate } from "../components/Login";
+import { renderField, renderFieldDate, LoginPres } from "../components/Login";
+import { AuthModeSwitcher } from "../components/Switchers";
 
 const validate = (values: any) => {
 	const Day = new Date();
@@ -52,17 +53,25 @@ const warn = (values: any) => {
 
 const Login = ({ ...props }) => {
 	const { handleSubmit } = props;
+	const [isKnown, setIsKnown] = React.useState<boolean>(false);
 	const Day = new Date();
 	const maxDay = [
 		Day.getFullYear() - 18,
 		Day.toLocaleDateString("en-CA").slice(5, 10)
 	].join("-");
+	const switchIsKnown = () => {
+		setIsKnown(prev => !prev);
+	};
 	return (
-		<div>
-			<img alt={""} src={""} />
+		<LoginPres>
+			<AuthModeSwitcher
+				setter={switchIsKnown}
+				current={isKnown}
+				texts={["Sign Up", "Sign In"]}
+			/>
+			<button>Connect With Google</button>
+			<button>Connect With Facebook</button>
 			<form onSubmit={val => handleSubmit(val)}>
-				<button>Connect With Google</button>
-				<button>Connect With Facebook</button>
 				<div>
 					<Field
 						label="Email"
@@ -79,19 +88,21 @@ const Login = ({ ...props }) => {
 						type="password"
 					/>
 				</div>
-				<div>
-					<Field
-						label="naissance"
-						name="birth"
-						component={renderFieldDate}
-						type="date"
-						max={maxDay}
-						defaultValue={maxDay}
-					/>
-				</div>
+				{!isKnown && (
+					<div>
+						<Field
+							label="naissance"
+							name="birth"
+							component={renderFieldDate}
+							type="date"
+							max={maxDay}
+							defaultValue={maxDay}
+						/>
+					</div>
+				)}
 				<button type="submit">Submit</button>
 			</form>
-		</div>
+		</LoginPres>
 	);
 };
 
@@ -102,9 +113,13 @@ export const LoginPage = reduxForm({
 })(Login);
 
 export const LogIcon = () => {
-	return true ? (
-		<i className="far fa-user"></i>
-	) : (
-		<i className="fas fa-user"></i>
+	return (
+		<button>
+			{true ? (
+				<i className="far fa-user"></i>
+			) : (
+				<i className="fas fa-user"></i>
+			)}
+		</button>
 	);
 };

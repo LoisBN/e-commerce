@@ -1,0 +1,15 @@
+footer {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	background-color: white;
+	border-top: 1px grey solid;
+	border-bottom: 1px grey solid;
+	margin: 0;
+	padding: 0 20px;
+	height: 440px;
+}
+footer div {
+	margin-top: 2%;
+	width: 30%;
+}

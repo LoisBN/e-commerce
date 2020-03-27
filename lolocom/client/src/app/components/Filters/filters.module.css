@@ -1,0 +1,16 @@
+#filterscolumn {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 30%;
+	border-right: 1px grey solid;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+#filtersbar {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	width: 100%;
+	height: 44px;
+	border-bottom: 1px grey solid;
+}

@@ -24,3 +24,14 @@ export const changeQuantityProduct = (productref: any, product: any) => ({
 	productref: productref,
 	product: product
 });
+
+export const submitCart = () => async (
+	dispatch: any,
+	getState: any
+): Promise<void> => {
+	// const res = await API.;
+	dispatch({
+		type: typeofAction.CARTSEND,
+		payload: {}
+	});
+};

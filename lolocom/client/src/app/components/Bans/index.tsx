@@ -1,4 +1,5 @@
 import React from "react";
+import c from "./index.module.css";
 
 export const ImagesBanPres = ({
 	images,
@@ -9,7 +10,7 @@ export const ImagesBanPres = ({
 	title?: string;
 	text?: string;
 }) => (
-	<div>
+	<div className={`${c.imgs_ban} ${c.ban}`}>
 		{images.map(img => (
 			<img key={img} src={img} alt={img} />
 		))}
@@ -18,7 +19,7 @@ export const ImagesBanPres = ({
 	</div>
 );
 
-export const TextedBanPres = ({
+export const TextedBanImg = ({
 	img,
 	title,
 	text
@@ -27,10 +28,12 @@ export const TextedBanPres = ({
 	title?: string;
 	text?: string;
 }) => (
-	<div>
+	<div className={`${c.textedimg_ban} ${c.ban}`}>
 		<img key={img} src={img} alt={img} />
-		{title && <h2>{title}</h2>}
-		{text && <p>{text}</p>}
+		<div>
+			{title && <h2>{title}</h2>}
+			{text && <p>{text}</p>}
+		</div>
 	</div>
 );
 
@@ -46,13 +49,15 @@ export const FullScreenImages = ({
 }) => (
 	<div>
 		{true && <button></button>}
-		{themes.map(({ title, link, img, describe }) => (
-			<>
-				<img key={img} src={img} alt={img} />
-				<h2>{title}</h2>
-				<p>{describe}</p>
-				<button>{link.text}</button>
-			</>
-		))}
+		<div className={c.fullscreenimg}>
+			{themes.map(({ title, link, img, describe }) => (
+				<>
+					<img key={img} src={img} alt={img} />
+					<h2>{title}</h2>
+					<p>{describe}</p>
+					<button>{link.text}</button>
+				</>
+			))}
+		</div>
 	</div>
 );
