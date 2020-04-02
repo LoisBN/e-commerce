@@ -118,8 +118,14 @@ google.golang.org/protobuf/runtime/protoimpl
 google.golang.org/protobuf/types/known/anypb
 google.golang.org/protobuf/types/known/durationpb
 google.golang.org/protobuf/types/known/timestamppb
+# gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
+## explicit
+gopkg.in/alexcesaro/quotedprintable.v3
 # gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f
 ## explicit
+# gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+## explicit
+gopkg.in/gomail.v2
 # gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 ## explicit
 gopkg.in/mgo.v2

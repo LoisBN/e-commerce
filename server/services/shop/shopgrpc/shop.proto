@@ -1,0 +1,18 @@
+syntax = "proto3";
+option go_package = ".;shopgrpc";
+package shopgrpc;
+
+message product {
+    string name = 1;
+    string type = 2;
+    string stock = 3;
+    map<string,string> other = 4;
+}
+
+message filter {
+    repeated Rules rules = 1;
+}
+
+message Rules {
+    map<string,Rule> 
+}

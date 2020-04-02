@@ -9,6 +9,9 @@ message profile {
     string birthday = 4;
     string date = 5;
     string password = 6;
+    string accountValidation = 7;
+    string admin = 8;
+    string _id = 9;
 }
 
 message req {
@@ -26,5 +29,6 @@ service Auth {
     rpc SignIn (req) returns (res);
     rpc Update (req) returns (res);
     rpc SignOut (req) returns (res);
+    rpc Recover (req) returns (res);
     rpc Authenticate (req) returns (res);
 }

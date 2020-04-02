@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"google.golang.org/grpc/grpclog"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type AuthDBHandler struct{ DB DatabaseLayer }
@@ -28,6 +29,18 @@ func (db *AuthDBHandler) Add(ctx context.Context, req *AuthRequest) (*AuthRespon
 	}, nil
 }
 
+// Update : update a database record
+func(db *AuthDBHandler) Update(ctx context.Context,req *AuthRequest) (*AuthResponse,error) {
+	err := db.DB.Update(req)
+	if err != nil {
+		grpclog.Errorln(err.Error())
+		return nil, err
+	}
+	return &AuthResponse{
+		Info: "transmission success",
+	}, nil
+}
+
 // Get : Get a user from the database
 func (db *AuthDBHandler) Get(ctx context.Context, req *AuthRequest) (*Profile, error) {
 	result, err := db.DB.Get(req)
@@ -35,13 +48,17 @@ func (db *AuthDBHandler) Get(ctx context.Context, req *AuthRequest) (*Profile, e
 		grpclog.Errorln(err.Error())
 		return nil, err
 	}
+	//fmt.Println("HERE ID",result["_id"].(bson.ObjectId).Hex())
 	return &Profile{
+		XId: 	  result["_id"].(bson.ObjectId).Hex(),
 		Surname:  result["surname"].(string),
 		Name:     result["name"].(string),
 		Email:    result["email"].(string),
 		Birthday: result["birthday"].(string),
 		Date:     result["date"].(string),
 		Password: result["password"].(string),
+		Admin: 	  result["admin"].(string),
+		AccountValidation: result["accountvalidation"].(string),
 	}, nil
 }
 

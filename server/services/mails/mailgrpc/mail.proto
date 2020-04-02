@@ -1,0 +1,16 @@
+syntax = "proto3";
+option go_package = ".;mailgrpc";
+package mailgrpc;
+
+message mailreq {
+    string to = 1;
+    string subject = 2;
+}
+
+message mailres {
+    string info = 1;
+}
+
+service Mail {
+    rpc Send (mailreq) returns (mailres);
+}

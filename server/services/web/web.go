@@ -21,6 +21,8 @@ func RunAPI()  {
 	http.HandleFunc("/auth/signup",webstub.SignUp)
 	http.HandleFunc("/auth/signin",webstub.SignIn)
 	http.HandleFunc("/auth/signout",webstub.SignOut)
+	http.HandleFunc("/auth/update",webstub.UpdateProfile)
+	http.HandleFunc("/auth/recover",webstub.RecoverPassword)
 	http.ListenAndServe(config.(map[string]interface{})["api_endpoint"].(string),nil)
 }
 

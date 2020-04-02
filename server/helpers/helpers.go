@@ -3,7 +3,6 @@ package helpers
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
 	"time"
 
@@ -52,7 +51,6 @@ func (h *Helper) GetConfig(service string) (interface{},error) {
 		return nil, err
 	}
 	err = json.NewDecoder(f).Decode(&x)
-	fmt.Println(x)
 	if err != nil {
 		grpclog.Errorln(err.Error())
 		return nil, err
@@ -64,7 +62,9 @@ func (h *Helper) GetConfig(service string) (interface{},error) {
 		return x["services"].(map[string]interface{})["db"],nil
 	case "web":
 		return x["services"].(map[string]interface{})["web"],nil
+	case "mails":
+		return x["services"].(map[string]interface{})["mails"],nil
 	default:
-		return nil,errors.New("this services is not provided by configuration")
+		return nil,errors.New("this service is not provided by configuration")
 	}
 }

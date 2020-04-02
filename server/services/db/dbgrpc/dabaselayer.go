@@ -16,6 +16,7 @@ type DatabaseLayer interface {
 	Add(interface{}) error
 	Get(interface{}) (map[string]interface{},error)
 	Find(interface{}) (bool,error)
+	Update(interface{}) error
 }
 
 // GetDatabaseLayer : Get a connection to the selected database

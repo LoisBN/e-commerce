@@ -33,7 +33,7 @@ func FormatDate(t time.Time, location string) string {
 	return "not implemented"
 }
 
-func getClient(service uint8) (authgrpc.TestClient, error) {
+func getClient(service uint8) (authgrpc.AuthClient, error) {
 	config,err := helper.GetConfig("web")
 	if err != nil {
 		grpclog.Errorln(err.Error())
@@ -46,7 +46,7 @@ func getClient(service uint8) (authgrpc.TestClient, error) {
 	}
 	switch service {
 	case Auth:
-		return authgrpc.NewTestClient(conn), nil
+		return authgrpc.NewAuthClient(conn), nil
 	default:
 		return nil, errors.New("this service is not implemented yet")
 	}
@@ -54,6 +54,39 @@ func getClient(service uint8) (authgrpc.TestClient, error) {
 
 // SignUp : Sign up the user
 func (wstub *Webstub) SignUp(w http.ResponseWriter, req *http.Request) {
+	if req.Method == "OPTIONS" {
+		return
+	}
+	client, err := getClient(Auth)
+	if err != nil {
+		grpclog.Errorln("error here",err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	p := &authgrpc.Profile{}
+	err = json.NewDecoder(req.Body).Decode(p)
+	if err != nil {
+		grpclog.Errorln("cannot decode json from request :", err.Error())
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var r *authgrpc.Req = &authgrpc.Req{
+		Profile: p,
+		Date:"now",
+	}
+	bf := time.Now().Nanosecond()
+	res, err := client.SignUp(context.Background(), r)
+	af := time.Now().Nanosecond()-bf
+	fmt.Println(af)
+	if err != nil {
+		grpclog.Errorln(err.Error())
+		http.Error(w,err.Error(),http.StatusInternalServerError)
+		return
+	}
+	fmt.Println(res)
+}
+
+func (wstub *Webstub) UpdateProfile(w http.ResponseWriter,req *http.Request) {
 	if req.Method == "OPTIONS" {
 		return
 	}
@@ -74,10 +107,7 @@ func (wstub *Webstub) SignUp(w http.ResponseWriter, req *http.Request) {
 		Profile: p,
 		Date:"now",
 	}
-	bf := time.Now().Nanosecond()
-	res, err := client.SignUp(context.Background(), r)
-	af := time.Now().Nanosecond()-bf
-	fmt.Println(af)
+	res,err := client.Update(context.Background(),r)
 	if err != nil {
 		grpclog.Errorln(err.Error())
 		http.Error(w,err.Error(),http.StatusInternalServerError)
@@ -116,6 +146,36 @@ func (wstub *Webstub) SignIn(w http.ResponseWriter,req *http.Request) {
 		return
 	}
 	json.NewEncoder(w).Encode(profile)
+}
+
+func (wstub *Webstub) RecoverPassword(w http.ResponseWriter,req *http.Request) {
+	if req.Method == "OPTIONS" {
+		return
+	}
+	client,err := getClient(Auth)
+	if err != nil {
+		grpclog.Errorln(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	x := &authgrpc.Profile{}
+	err = json.NewDecoder(req.Body).Decode(x)
+	if err != nil {
+		grpclog.Errorln("cannot decode json from request :", err.Error())
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	r := &authgrpc.Req{
+		Profile: x,
+		Date: "now",
+	}
+	res,err := client.Recover(context.Background(),r)
+	if err != nil {
+		grpclog.Errorln(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(res)
 }
 
 // SignOut : allow the user to sign out

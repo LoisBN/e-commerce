@@ -26,6 +26,11 @@
                     "insecure"
                 ]
             }
+        },
+        "mails": {
+            "server": {
+                "grpc_port": ":4446"
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ func LaunchAuthService()  {
 	grpcServer := grpc.NewServer()
 	defer grpcServer.GracefulStop()
 	authHandler := authgrpc.NewHandler()
-	authgrpc.RegisterTestServer(grpcServer,authHandler)
+	authgrpc.RegisterAuthServer(grpcServer,authHandler)
 	if err := grpcServer.Serve(li); err != nil {
 		grpclog.Errorln(err.Error())
 		grpcServer.Stop()
